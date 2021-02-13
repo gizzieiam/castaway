@@ -1,0 +1,77 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+
+public class Hunger : MonoBehaviour
+{
+    int maxHunger = 10;
+    int hungerStat;
+    float timer;
+    bool isStarving;
+    bool isDead;
+
+    void Start()
+    {
+        hungerStat = 5;
+        timer = 0.0f;
+        isDead = false;
+        GameObject.Find("HungerUI").GetComponent<Text>().text = hungerStat.ToString();
+    }
+
+    void Update()
+    {
+        GameObject.Find("HungerUI").GetComponent<Text>().text = hungerStat.ToString();
+
+        if(hungerStat == 0)
+        {
+            isStarving = true;
+        }else
+        {
+            isStarving = false;
+        }
+
+        if(isStarving)
+        {
+            timer = timer + Time.deltaTime;
+            int seconds = (int) (timer%60);
+            int minutes = (int) (timer/60);
+            
+            if (minutes == 2)
+            {
+                isDead = true;
+            }
+        }
+
+        HungerDecrement();
+    }
+
+    void HungerDecrement()
+    {
+        timer = timer + Time.deltaTime;
+        int seconds = (int) (timer%60);
+        int minutes = (int) (timer/60);
+
+        if(minutes == 1)
+        {
+            hungerStat --;
+            timer = 0.0f;
+            print(hungerStat);
+        }
+    }
+
+    void HungerIncrement(string food)
+    {
+        if(food == "fruit")
+        {
+            hungerStat += 1;
+        }else if(food == "meat")
+        {
+            hungerStat += 2;
+        }else if(food == "cooked")
+        {
+            hungerStat += 5;
+        }
+    }
+}
