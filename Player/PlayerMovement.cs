@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-public float speed;
+    public static bool isActive;
+    public float speed;
     public float time;
     public bool isGrounded;
     public Vector3 jump;
     public int jumpCount;
-    public static bool isOver = false;
     private Rigidbody self;
 
 
@@ -32,11 +32,7 @@ public float speed;
 
     void PlayerMove()
     {
-        if (isOver){
-            time = time + Time.deltaTime;
-        }
-        if(!isOver)
-        {
+
             float moveX = Input.GetAxis("Horizontal");
             float moveY = Input.GetAxis("Vertical");
 
@@ -49,7 +45,8 @@ public float speed;
                 if(Input.GetButtonDown("Jump"))
                 {
                     jumpCount = jumpCount + 1;
-                self.AddForce(new Vector3(0, 5, 0), ForceMode.Impulse);
+                    self.AddForce(new Vector3(0, 5, 0), ForceMode.Impulse);
+                    isActive = true;
                 }
                 if(jumpCount == 2)
                 {
@@ -57,7 +54,6 @@ public float speed;
                     jumpCount = 0;                
                 }
             }
-        }
     }
 
     void OnCollisionEnter(Collision col)

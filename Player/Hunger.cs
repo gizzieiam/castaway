@@ -10,19 +10,16 @@ public class Hunger : MonoBehaviour
     int hungerStat;
     float timer;
     bool isStarving;
-    bool isDead;
+    // bool isDead;
 
     void Start()
     {
         hungerStat = 5;
         timer = 0.0f;
-        isDead = false;
-        GameObject.Find("HungerUI").GetComponent<Text>().text = hungerStat.ToString();
     }
 
     void Update()
     {
-        GameObject.Find("HungerUI").GetComponent<Text>().text = hungerStat.ToString();
 
         if(hungerStat == 0)
         {
@@ -30,6 +27,11 @@ public class Hunger : MonoBehaviour
         }else
         {
             isStarving = false;
+        }
+
+        if(hungerStat > maxHunger)
+        {
+            hungerStat = maxHunger;
         }
 
         if(isStarving)
@@ -40,11 +42,12 @@ public class Hunger : MonoBehaviour
             
             if (minutes == 2)
             {
-                isDead = true;
+                // isDead = true;
             }
         }
 
         HungerDecrement();
+        GameObject.Find("HungerUI").GetComponent<Text>().text = hungerStat.ToString();
     }
 
     void HungerDecrement()
