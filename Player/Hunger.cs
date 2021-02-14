@@ -72,6 +72,15 @@ public class Hunger : MonoBehaviour
         }else if(food == "cooked")
         {
             hungerStat += 5;
+        }else if (food == "poison")
+        {
+            int ranIncrease = Random.Range(1, 6);
+            hungerStat += ranIncrease;
+            if(ranIncrease%2==1)
+            {
+                // player is poisoned
+            }
+
         }
     }
 }
