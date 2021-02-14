@@ -35,6 +35,6 @@ public class Hygiene : MonoBehaviour
             isStinky = true;
             // if player is stinky increase the random chance of animal attack
         }
-        GameObject.Find("HygieneUI").GetComponent<Text>().text = hygieneStat.ToString();
+        GameObject.Find("HygieneUI").GetComponent<Text>().text = "Hygiene: " + hygieneStat.ToString();
     }
 }

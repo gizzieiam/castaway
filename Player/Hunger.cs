@@ -42,12 +42,12 @@ public class Hunger : MonoBehaviour
             
             if (minutes == 2)
             {
-                // isDead = true;
+                // died of hunger
             }
         }
 
         HungerDecrement();
-        GameObject.Find("HungerUI").GetComponent<Text>().text = hungerStat.ToString();
+        GameObject.Find("HungerUI").GetComponent<Text>().text = "Hunger: " + hungerStat.ToString();
     }
 
     void HungerDecrement()
@@ -60,7 +60,6 @@ public class Hunger : MonoBehaviour
         {
             hungerStat --;
             timer = 0.0f;
-            print(hungerStat);
         }
     }
 
