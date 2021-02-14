@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Hunger : MonoBehaviour
 {
     int maxHunger = 10;
-    int hungerStat;
+    static int hungerStat;
     float timer;
     bool isStarving;
     // bool isDead;
@@ -63,7 +63,7 @@ public class Hunger : MonoBehaviour
         }
     }
 
-    void HungerIncrement(string food)
+    public static void HungerIncrement(string food)
     {
         if(food == "fruit")
         {
