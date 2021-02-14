@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public static bool isActive;
-    public float speed;
+    public static float speed;
     public float time;
     public bool isGrounded;
     public Vector3 jump;
@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
         jump = new Vector3(0.0f, 2.0f, 0.0f);
         jumpCount = 0;
         time = 0.0f;
+        speed = 3f;
     }
 
     // Update is called once per frame
