@@ -11,38 +11,34 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 jump;
     public int jumpCount;
     private Rigidbody self;
+    public CharacterController controller;
 
-
-
-    Vector3 velocity;
-    // Start is called before the first frame update
     void Start()
     {
         self = GetComponent<Rigidbody>();
         jump = new Vector3(0.0f, 2.0f, 0.0f);
         jumpCount = 0;
         time = 0.0f;
-        speed = 3f;
+        speed = 5f;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        PlayerMove();
+        MovePlayer();
     }
 
-    void PlayerMove()
+    void MovePlayer()
     {
 
             float moveX = Input.GetAxis("Horizontal");
-            float moveY = Input.GetAxis("Vertical");
+            float moveZ = Input.GetAxis("Vertical");
 
-            Vector3 playerMovement = new Vector3(moveX, 0f, moveY) * speed * Time.deltaTime;
-            transform.Translate(playerMovement, Space.Self);
+            Vector3 move = transform.right * moveX + transform.forward * moveZ;
 
+            controller.Move(move*speed* Time.deltaTime);
             if(isGrounded)
             {
-                transform.Translate(moveX * Time.deltaTime * speed, 0, moveY * Time.deltaTime);
+                transform.Translate(moveX * Time.deltaTime * speed, 0, moveZ * Time.deltaTime);
                 if(Input.GetButtonDown("Jump"))
                 {
                     jumpCount = jumpCount + 1;
@@ -59,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.tag == "Ground" || col.gameObject.tag == "Start")
+        if (col.gameObject.tag == "Ground")
         {
             isGrounded = true;
         }

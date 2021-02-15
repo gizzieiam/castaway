@@ -6,8 +6,10 @@ public class CameraControl : MonoBehaviour
 {
     public float RotationSpeed = 1;
     public Transform Target, Player;
+    public float mouseSensitivity = 100f;
     public Transform Obstruction;
     float zoomSpeed = 2f;
+    float xRotation = 0f;
     float mouseX, mouseY;
 
     void Start()
@@ -18,25 +20,19 @@ public class CameraControl : MonoBehaviour
     }
     void LateUpdate()
     {
-        CamControl();
         ViewObstructed();
     }
-    void CamControl()
+    
+    void Update()
     {
-        mouseX -= Input.GetAxis("Mouse X") * RotationSpeed;
-        mouseY += Input.GetAxis("Mouse Y") * RotationSpeed;
-        mouseY = Mathf.Clamp(mouseY, 0, 10);
+        float mouseX = Input.GetAxis("Mouse X")* mouseSensitivity * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y")* mouseSensitivity * Time.deltaTime;
 
-        transform.LookAt(Target);
-        if(Input.GetKey(KeyCode.LeftShift))
-        {
-            Target.rotation = Quaternion.Euler(mouseY, mouseX, 0);
-        }else
-        {
-            Target.rotation = Quaternion.Euler(mouseY, mouseX, 0);
-            Player.rotation = Quaternion.Euler(0, mouseX, 0);
-        }
-        
+        xRotation -= mouseY;
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+
+        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        Player.Rotate(Vector3.up*mouseX);
     }
 
     void ViewObstructed()

@@ -34,7 +34,7 @@ public class Energy : MonoBehaviour
         if (isTired)
         {
             int count = 0;
-            speed = 1f;
+            // speed = 1f;
             timer = timer + Time.deltaTime;
             int seconds = (int) (timer%60);
             int minutes = (int) (timer/60);
